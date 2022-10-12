@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include <memory>
 
 using namespace std;
 
@@ -19,7 +20,10 @@ struct Item
 
 	Item(string name = "", i_type type = useless, int stat = 0);
 	~Item() {;}
+
 };
+
+ostream & operator<<(ostream & os, const Item & item);
 
 
 

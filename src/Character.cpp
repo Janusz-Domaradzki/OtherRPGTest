@@ -14,11 +14,10 @@ Entity::Entity(string cname, int slvl, int shp, int sdmg, int sdf, int sxp_val)
 
 		xp_val = sxp_val;
 
-		Inventory = nullptr;
 
 	}
 
-void Entity::equip_item(Item *i)
+void Entity::equip_item(shared_ptr<Item> i)
 {
 	Inventory = i;
 	switch(Inventory->item_type)
@@ -37,15 +36,30 @@ void Entity::equip_item(Item *i)
 	}
 }
 
-void Entity::delete_item()
+void Entity::clear_inventory()
 {
+	switch(Inventory->item_type)
+	{
+		case weapon:
+		dmg -= Inventory->item_stat;
+		break;
+		case armor:
+		df -= Inventory->item_stat;
+		break;
+		case potion:
+		break;
+		default:
+		cout << "Item type does not exist in this section of code" << endl;
+		break;
+	}
 	Inventory = nullptr;
 }
 
+
 void Entity::print_stats()
 	{
-		cout << "|| === " << name << " == Lvl: " << get_lvl() << " === ||" << endl;
-		cout << "|| HP: " << get_hp() << "/" << get_maxhp() << " ||" << endl;
+		cout << "===== " << name << " == Lvl: " << get_lvl() << " =====" << endl;
+		cout << "|| HP: " << get_hp() << "/" << get_maxhp() << endl;
 	}
 
 void Entity::take_dmg(int dmg_taken) 
@@ -83,9 +97,14 @@ Player::Player(string pname, int plvl, int php, int pdmg, int pdf) : Entity(pnam
 
 void Player::print_stats()
 	{
-		cout << "|| === " << get_name() << " == Lvl: " << get_lvl() << " === ||" << endl;
-		cout << "|| XP: " << xp << "/" << xp_cap << " Item: " << Inventory->item_name << " ||" << endl;
-		cout << "|| HP: " << get_hp() << "/" << get_maxhp() << " ||" << endl;
+		cout << "===== " << get_name() << " == Lvl: " << get_lvl() << " =====" << endl;
+		cout << "|| XP: " << xp << "/" << xp_cap << endl;
+		cout << "|| HP: " << get_hp() << "/" << get_maxhp() << endl;
+		cout << "|| Inventory: ";
+		if(!Inventory)  cout << "Empty" << endl;
+		else cout << Inventory->item_name << endl;
+		//cout << "DMG: " << get_dmg() << endl;
+		//cout << "ARMOR: " << get_df() << endl;
 	}
 
 void Player::xp_increase(int enemy_xpval, int enemy_lvl)

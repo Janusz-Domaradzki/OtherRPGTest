@@ -45,8 +45,8 @@ void Fight(Player &Player1, Entity &Enemy1, bool &contact)
 int main()
 {
 	srand(time(NULL));
-	Item Battle_Axe("Battle Axe", weapon, 2);
-	Item Bronze_Helmet("Bronze Helmet", armor, 1);
+	shared_ptr<Item> Battle_Axe = make_shared<Item>("Battle Axe", weapon, 2);
+	shared_ptr<Item> Bronze_Helmet = make_shared<Item>("Bronze Helmet", armor, 1);
 
 	string player_name;
 	cout << "Hello! Choose your character name: ";
@@ -57,7 +57,9 @@ int main()
 
 	bool contact = true;
 
-	Player1.equip_item(&Battle_Axe);
+	Player1.equip_item(Battle_Axe);
+
+	Player1.clear_inventory();
 
 	Fight(Player1, Enemy1, contact);
 

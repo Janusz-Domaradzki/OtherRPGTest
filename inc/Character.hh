@@ -28,15 +28,15 @@ class Entity
 
 	public:
 
-	Item *Inventory;
+	shared_ptr<Item> Inventory;
 
 	Entity(string cname, int slvl = 1, int shp = 20, int sdmg = 5, int sdf = 2, int sxp_val = 10);
 
 	~Entity() {;}
 
-	void equip_item(Item *i);
+	void equip_item(shared_ptr<Item> i);
 
-	void delete_item();
+	void clear_inventory();
 
 	int get_lvl() {return lvl;}
 
@@ -45,6 +45,8 @@ class Entity
 	int get_maxhp() {return max_hp;}	
 
 	int get_dmg() {return dmg;}
+
+	int get_df() {return df;}
 
 	string get_name() {return name;}
 
