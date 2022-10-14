@@ -49,7 +49,7 @@ void Fight(shared_ptr<Player> Player1, shared_ptr<Entity> Enemy1, bool &contact)
 int main()
 {
 	srand(time(NULL));
-	shared_ptr<Item> Battle_Axe = make_shared<Item>("Battle Axe", weapon, 1);
+	shared_ptr<Item> Battle_Axe = make_shared<Item>("Battle Axe", weapon, 2);
 	shared_ptr<Item> Bronze_Helmet = make_shared<Item>("Bronze Helmet", armor, 1);
 
 	string player_name;
@@ -65,7 +65,15 @@ int main()
 	//Player1.equip_item(Battle_Axe);
 	//Enemy1.equip_item(Battle_Axe);
 
+	Player1->equip_item2(Battle_Axe, 1);
+	Player1->equip_item2(Bronze_Helmet, 2); //***UWAGA!!! Odwrotna kolejnosc wywala Segmentation fault!
+
 	Fight(Player1, Enemy1, contact);
+
+	Player1->remove_item(2); //Tak jak w uwadze ***
+	Player1->remove_item(1);
+
+	cout << "SIze:" << Player1->Inventory2.size() << endl;
 
 	Player1->print_stats();
 
