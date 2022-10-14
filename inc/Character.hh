@@ -2,6 +2,7 @@
 #define CHARACTER_HH
 
 #include "Item.hh"
+#include <vector>
 
 #define BASE_XP 0
 #define BASE_XP_CAP 15
@@ -32,7 +33,7 @@ class Entity
 
 	Entity(string cname, int slvl = 1, int shp = 20, int sdmg = 5, int sdf = 2, int sxp_val = 10);
 
-	~Entity() {;}
+	~Entity() { if(Inventory) Inventory.reset(); }
 
 	void equip_item(shared_ptr<Item> i);
 

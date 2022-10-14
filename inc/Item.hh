@@ -8,7 +8,7 @@
 
 using namespace std;
 
-enum i_type {weapon, armor, potion, useless};
+enum i_type {weapon, armor, useable, useless};
 
 enum i_stat {damage, defense, value, literally_zero};
 

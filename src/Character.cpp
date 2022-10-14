@@ -28,7 +28,7 @@ void Entity::equip_item(shared_ptr<Item> i)
 		case armor:
 		df += Inventory->item_stat;
 		break;
-		case potion:
+		case useable:
 		break;
 		default:
 		cout << "Item type does not exist in this section of code" << endl;
@@ -46,7 +46,7 @@ void Entity::clear_inventory()
 		case armor:
 		df -= Inventory->item_stat;
 		break;
-		case potion:
+		case useable:
 		break;
 		default:
 		cout << "Item type does not exist in this section of code" << endl;
@@ -63,13 +63,16 @@ void Entity::print_stats()
 	}
 
 void Entity::take_dmg(int dmg_taken) 
-	{
-		hp -= dmg_taken;
+	{	
+		int dmg_after_df = dmg_taken - (int) df*0.2;
+		if(dmg_after_df < 1) hp -= 1;
+		else hp -= (dmg_taken - (int) df*0.2);
 	}
 
 int Entity::deal_dmg()
 	{
 		int x = rand()%ATCK_RANGE + get_dmg() - 2;
+		if(x<1) x = 1;
 		cout << name << " attacks for " << x << " points of dmg." << endl;
 		return x;
 	}
