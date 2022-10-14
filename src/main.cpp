@@ -61,19 +61,13 @@ int main()
 
 	bool contact = true;
 
-	//Player1.print_stats();
-	//Player1.equip_item(Battle_Axe);
-	//Enemy1.equip_item(Battle_Axe);
-
-	Player1->equip_item2(Battle_Axe, 1);
-	Player1->equip_item2(Bronze_Helmet, 2); //***UWAGA!!! Odwrotna kolejnosc wywala Segmentation fault!
+	Player1->equip_item(Battle_Axe, 2); // Tutaj cos sie zle dzieje
+	Player1->equip_item(Bronze_Helmet, 3);
 
 	Fight(Player1, Enemy1, contact);
 
-	Player1->remove_item(2); //Tak jak w uwadze ***
-	Player1->remove_item(1);
-
-	cout << "SIze:" << Player1->Inventory2.size() << endl;
+	Player1->remove_item(3); 
+	Player1->remove_item(2);
 
 	Player1->print_stats();
 

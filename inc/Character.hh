@@ -29,23 +29,16 @@ class Entity
 
 	public:
 
-	shared_ptr<Item> Inventory;
-	vector<shared_ptr<Item>> Inventory2;
+	vector<shared_ptr<Item>> Inventory;
 
 	Entity(string cname, unsigned int slvl = 1, unsigned int shp = 20, unsigned int sdmg = 5, 
 		unsigned int sdf = 2, unsigned int sxp_val = 10);
 
-	~Entity() { if(Inventory) Inventory.reset(); }
+	~Entity() { Inventory.clear(); }
 
 	void equip_item(shared_ptr<Item> i, unsigned int slot);
 
-	void equip_item2(shared_ptr<Item> i, unsigned int slot);
-
-	void clear_inventory();
-
-	void remove_item(unsigned int i);
-
-	void remove_item2(int unsigned slot);
+	int remove_item(unsigned int slot);
 
 	int get_lvl() {return lvl;}
 
