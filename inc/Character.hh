@@ -17,6 +17,7 @@
 #define DF_SMALL_SCALAR 0.01
 #define ATCK_RANGE 4
 
+
 class Entity
 {
 	unsigned int lvl, max_lvl;
@@ -34,11 +35,15 @@ class Entity
 	Entity(string cname, unsigned int slvl = 1, unsigned int shp = 20, unsigned int sdmg = 5, 
 		unsigned int sdf = 2, unsigned int sxp_val = 10);
 
-	~Entity() { Inventory.clear(); }
+	~Entity() {;}
 
-	void equip_item(shared_ptr<Item> i, unsigned int slot);
+	void equip_item(shared_ptr<Item> item, int slot);
 
-	int remove_item(unsigned int slot);
+	int remove_item(int slot);
+
+	void add_item_stats(shared_ptr<Item> i);
+
+	void remove_item_stats(shared_ptr<Item> i);
 
 	int get_lvl() {return lvl;}
 
@@ -80,6 +85,7 @@ public:
 	virtual void print_stats();
 
 	void xp_increase(unsigned int enemy_xpval, unsigned int enemy_lvl);
+
 };
 
 

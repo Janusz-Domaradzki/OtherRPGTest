@@ -22,7 +22,44 @@ Entity::Entity(string cname, unsigned int slvl, unsigned int shp, unsigned int s
 	}
 
 
-void Entity::equip_item(shared_ptr<Item> item, unsigned int slot)
+void Entity::add_item_stats(shared_ptr<Item> i)
+{
+	switch(i->item_type)
+		{
+			case weapon:
+			dmg += i->item_stat;
+			break;
+			case armor:
+			df += i->item_stat;
+			break;
+			case useable:
+			break;
+			default:
+			cout << "Item type does not exist in this section of code" << endl;
+			break;
+		}
+}
+
+
+void Entity::remove_item_stats(shared_ptr<Item> i)
+{
+	switch(i->item_type)
+	{
+		case weapon:
+		dmg -= i->item_stat;
+		break;
+		case armor:
+		df -= i->item_stat;
+		break;
+		case useable:
+		break;
+		default:
+		cout << "Item type does not exist in this section of code" << endl;
+		break;
+	}
+}
+
+void Entity::equip_item(shared_ptr<Item> item, int slot)
 {
 	if(slot > 3) 
 	{
@@ -30,51 +67,30 @@ void Entity::equip_item(shared_ptr<Item> item, unsigned int slot)
 	}
 	else
 	{
-		if(!this->remove_item(slot-1))
-		{ 
-
+		if(!this->remove_item(slot))
+		{
 			Inventory[slot-1] = item;
-			switch(Inventory[slot-1]->item_type)
-			{
-				case weapon:
-				dmg += Inventory[slot-1]->item_stat;
-				break;
-				case armor:
-				df += Inventory[slot-1]->item_stat;
-				break;
-				case useable:
-				break;
-				default:
-				cout << "Item type does not exist in this section of code" << endl;
-				break;
-			}
+			this->add_item_stats(Inventory[slot-1]);
 		}
+		else cout << "Can't find the item" << endl;
+
 	}
 }
 
 
-int Entity::remove_item(unsigned int slot)
+int Entity::remove_item(int slot)
 {
 	if(slot > 3) cout << "Inventory slot doesn't exist" << endl;
 	else
 	{
-		if(Inventory[slot-1] == nullptr) return 0;
+		if(Inventory[slot-1] == nullptr) 
+		{
+			cout << "Unable to remove non-existing item" << endl;
+			return 0;
+		}
 		else
 		{
-			switch(Inventory[slot-1]->item_type)
-			{
-				case weapon:
-				dmg -= Inventory[slot-1]->item_stat;
-				break;
-				case armor:
-				df -= Inventory[slot-1]->item_stat;
-				break;
-				case useable:
-				break;
-				default:
-				cout << "Item type does not exist in this section of code" << endl;
-				break;
-			}
+			this->remove_item_stats(Inventory[slot-1]);
 			Inventory[slot-1] = nullptr;
 		}
 		
