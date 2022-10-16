@@ -12,6 +12,8 @@ enum i_type {weapon, armor, useable, useless};
 
 enum i_stat {damage, defense, value, literally_zero};
 
+enum i_material {copper, iron};
+
 struct Item
 {
 	string item_name;

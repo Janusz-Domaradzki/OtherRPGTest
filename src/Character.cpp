@@ -61,10 +61,7 @@ void Entity::remove_item_stats(shared_ptr<Item> i)
 
 void Entity::equip_item(shared_ptr<Item> item, int slot)
 {
-	if(slot > 3) 
-	{
-		cout << "Inventory slot doesn't exist" << endl;
-	}
+	if(slot > 3) cout << "Inventory slot doesn't exist" << endl;
 	else
 	{
 		if(!this->remove_item(slot))
@@ -83,17 +80,11 @@ int Entity::remove_item(int slot)
 	if(slot > 3) cout << "Inventory slot doesn't exist" << endl;
 	else
 	{
-		if(Inventory[slot-1] == nullptr) 
-		{
-			cout << "Unable to remove non-existing item" << endl;
-			return 0;
-		}
-		else
+		if(Inventory[slot-1] != nullptr) 
 		{
 			this->remove_item_stats(Inventory[slot-1]);
 			Inventory[slot-1] = nullptr;
 		}
-		
 	}
 	return 0;
 }

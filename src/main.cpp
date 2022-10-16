@@ -42,7 +42,6 @@ void Fight(shared_ptr<Player> Player1, shared_ptr<Entity> Enemy1, bool &contact)
 			contact = false;
 			break;
 		}
-
 	}
 }
 
@@ -53,7 +52,7 @@ int main()
 	shared_ptr<Item> Bronze_Helmet = make_shared<Item>("Bronze Helmet", armor, 1);
 
 	string player_name;
-	cout << "Hello! Insert your character name: ";
+	cout << "Greetings! Insert your character name: ";
 	cin >> player_name;
 	
 	shared_ptr<Player> Player1 = make_shared<Player>(player_name, 1, 20, 4, 2);
@@ -62,8 +61,7 @@ int main()
 	bool contact = true;
 
 	Player1->equip_item(Battle_Axe, 1); 
-	cout << "Test12" << endl;
-	Player1->equip_item(Bronze_Helmet, 2);
+	Player1->equip_item(Bronze_Helmet, 1);
 
 	Fight(Player1, Enemy1, contact);
 
