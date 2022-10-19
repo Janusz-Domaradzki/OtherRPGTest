@@ -28,12 +28,14 @@ class Entity
 
 	unsigned int xp_val;
 
+	shared_ptr<Item> drop;	
+
 	public:
 
 	vector<shared_ptr<Item>> Inventory;
 
 	Entity(string cname, unsigned int slvl = 1, unsigned int shp = 20, unsigned int sdmg = 5, 
-		unsigned int sdf = 2, unsigned int sxp_val = 10);
+		unsigned int sdf = 2, unsigned int sxp_val = 10, shared_ptr<Item> dropping = nullptr);
 
 	~Entity() {;}
 
@@ -68,6 +70,8 @@ class Entity
 	void lvl_scale();
 
 	int get_xpval() {return xp_val;}
+
+	shared_ptr<Item> drop_item();
 
 };
 

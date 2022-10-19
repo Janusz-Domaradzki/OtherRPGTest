@@ -1,7 +1,8 @@
 #include "Character.hh"
 
 
-Entity::Entity(string cname, unsigned int slvl, unsigned int shp, unsigned int sdmg, unsigned int sdf, unsigned int sxp_val)
+Entity::Entity(string cname, unsigned int slvl, unsigned int shp, 
+	unsigned int sdmg, unsigned int sdf, unsigned int sxp_val, shared_ptr<Item> dropping)
 	{
 		lvl = slvl;
 		hp = shp + (lvl-1) * HP_BIG_SCALAR + (lvl-1) * HP_SMALL_SCALAR;
@@ -18,6 +19,8 @@ Entity::Entity(string cname, unsigned int slvl, unsigned int shp, unsigned int s
 		{
 			Inventory.push_back(nullptr);
 		}
+
+		drop = dropping;
 
 	}
 
@@ -125,6 +128,12 @@ void Entity::heal_dmg(unsigned int heal_value)
 	if(heal_value > max_hp) hp = max_hp;
 	else hp += heal_value;	
 }
+
+shared_ptr<Item> Entity::drop_item()
+{
+	return this->drop;
+}
+
 
 Player::Player(string pname, unsigned int plvl, unsigned int php, unsigned int pdmg, unsigned int pdf) : Entity(pname, plvl, php, pdmg, pdf)
 	{
