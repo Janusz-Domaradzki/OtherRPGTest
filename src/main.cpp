@@ -21,12 +21,12 @@ int main()
 	cin >> player_name;
 	
 	shared_ptr<Player> Player1 = make_shared<Player>(player_name, 1, 20, 4, 2);
-	shared_ptr<Entity> Enemy1= make_shared<Entity>("Enemy", 1, 15, 3, 1, 10, Battle_Axe);
+	shared_ptr<Entity> Enemy1= make_shared<Entity>("Enemy", 1, 15, 3, 1, 10, Bronze_Helmet);
 
 	bool contact = true;
 
-	Player1->equip_item(Battle_Axe, 1); 
-	Player1->equip_item(Bronze_Helmet, 1);
+	//Player1->equip_item(Battle_Axe, 1); 
+	Player1->equip_item(Battle_Axe, 1);
 
 	Fight(Player1, Enemy1, contact);
 
@@ -97,7 +97,7 @@ void Item_pick(shared_ptr<Player> Player1, shared_ptr<Entity> Enemy1)
 	if(drop != nullptr)
 	{
 		char choice;
-		cout << Enemy1->get_name() << " dropped " << drop->item_name << endl;
+		cout << Enemy1->get_name() << " dropped " << drop->get_item_name() << endl;
 		cout << "Do you want to equip it? (y/n): ";
 		cin >> choice;
 		if(choice == 'y')

@@ -39,13 +39,13 @@ class Entity
 
 	~Entity() {;}
 
-	void equip_item(shared_ptr<Item> item, int slot);
+	void equip_item(const shared_ptr<Item> item, int slot);
 
 	int remove_item(int slot);
 
-	void add_item_stats(shared_ptr<Item> i);
+	void add_item_stats(const shared_ptr<Item> i);
 
-	void remove_item_stats(shared_ptr<Item> i);
+	void remove_item_stats(const shared_ptr<Item> i);
 
 	int get_lvl() {return lvl;}
 

@@ -25,15 +25,16 @@ Entity::Entity(string cname, unsigned int slvl, unsigned int shp,
 	}
 
 
-void Entity::add_item_stats(shared_ptr<Item> i)
+void Entity::add_item_stats(const shared_ptr<Item> i)
 {
-	switch(i->item_type)
+	int inc = i->get_item_stat();
+	switch(i->get_item_type())
 		{
 			case weapon:
-			dmg += i->item_stat;
+			dmg += inc;
 			break;
 			case armor:
-			df += i->item_stat;
+			df += inc;
 			break;
 			case useable:
 			break;
@@ -44,15 +45,16 @@ void Entity::add_item_stats(shared_ptr<Item> i)
 }
 
 
-void Entity::remove_item_stats(shared_ptr<Item> i)
+void Entity::remove_item_stats(const shared_ptr<Item> i)
 {
-	switch(i->item_type)
+	int dec = i->get_item_stat();
+	switch(i->get_item_type())
 	{
 		case weapon:
-		dmg -= i->item_stat;
+		dmg -= dec;
 		break;
 		case armor:
-		df -= i->item_stat;
+		df -= dec;
 		break;
 		case useable:
 		break;
@@ -62,7 +64,7 @@ void Entity::remove_item_stats(shared_ptr<Item> i)
 	}
 }
 
-void Entity::equip_item(shared_ptr<Item> item, int slot)
+void Entity::equip_item(const shared_ptr<Item> item, int slot)
 {
 	if(slot > 3) cout << "Inventory slot doesn't exist" << endl;
 	else
@@ -150,7 +152,7 @@ void Player::print_stats()
 		for(unsigned int i = 0; i < Inventory.size(); i++)
 		{
 			cout << i+1 << ". ";
-			if(Inventory[i] != nullptr) cout << Inventory[i]->item_name;
+			if(Inventory[i] != nullptr) cout << Inventory[i]->get_item_name();
 			else cout << "Empty slot";
 			cout << " |";
 		}

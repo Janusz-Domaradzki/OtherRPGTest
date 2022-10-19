@@ -8,8 +8,3 @@ Item::Item(string name, i_type type, int stat)
 	item_stat = stat;
 }
 
-ostream & operator<<(ostream & os, const Item & itemm)
-{
-	os << itemm.item_name;
-	return os;
-}

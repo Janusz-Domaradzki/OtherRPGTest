@@ -14,22 +14,25 @@ enum i_stat {damage, defense, value, literally_zero};
 
 enum i_material {copper, iron};
 
-struct Item
+class Item
 {
 	string item_name;
 	i_type item_type;
 	int item_stat;
 
+	public:
+
 	Item(string name = "", i_type type = useless, int stat = 0);
 	~Item() {;}
 
-	
+	string get_item_name() {return item_name;}
 
+	i_type get_item_type() {return item_type;}
 
+	int get_item_stat() {return item_stat;}
 
 };
 
-ostream & operator<<(ostream & os, const Item & item);
 
 
 
