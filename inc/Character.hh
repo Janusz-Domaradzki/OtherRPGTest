@@ -63,7 +63,7 @@ class Entity
 
 	void take_dmg(unsigned int dmg_taken);
 
-	int deal_dmg();
+	const int deal_dmg();
 
 	void heal_dmg(unsigned int heal_value);
 
@@ -71,7 +71,7 @@ class Entity
 
 	int get_xpval() {return xp_val;}
 
-	shared_ptr<Item> drop_item();
+	const shared_ptr<Item> & drop_item();
 
 };
 

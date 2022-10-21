@@ -36,7 +36,7 @@ void Entity::add_item_stats(const shared_ptr<Item> i)
 			case armor:
 			df += inc;
 			break;
-			case useable:
+			case potion:
 			break;
 			default:
 			cout << "Item type does not exist in this section of code" << endl;
@@ -56,7 +56,7 @@ void Entity::remove_item_stats(const shared_ptr<Item> i)
 		case armor:
 		df -= dec;
 		break;
-		case useable:
+		case potion:
 		break;
 		default:
 		cout << "Item type does not exist in this section of code" << endl;
@@ -75,23 +75,29 @@ void Entity::equip_item(const shared_ptr<Item> item, int slot)
 			this->add_item_stats(Inventory[slot-1]);
 		}
 		else cout << "Can't find the item" << endl;
-
 	}
 }
 
 
 int Entity::remove_item(int slot)
 {
-	if(slot > 3) cout << "Inventory slot doesn't exist" << endl;
+	if(slot > 3) 
+	{
+		cout << "Inventory slot doesn't exist" << endl;
+		return 1;
+	}
 	else
 	{
 		if(Inventory[slot-1] != nullptr) 
 		{
+
 			this->remove_item_stats(Inventory[slot-1]);
 			Inventory[slot-1] = nullptr;
+
 		}
+		return 0;
 	}
-	return 0;
+	
 }
 
 
@@ -108,7 +114,7 @@ void Entity::take_dmg(unsigned int dmg_taken)
 		else hp -= (dmg_taken - (int) df*0.2);
 	}
 
-int Entity::deal_dmg()
+const int Entity::deal_dmg()
 	{
 		int x = rand()%ATCK_RANGE + get_dmg() - 2;
 		if(x<1) x = 1;
@@ -127,11 +133,12 @@ void Entity::lvl_scale()
 
 void Entity::heal_dmg(unsigned int heal_value)
 {
-	if(heal_value > max_hp) hp = max_hp;
-	else hp += heal_value;	
+	hp += heal_value;
+	if(hp > max_hp) hp = max_hp;
+	cout << this->get_name() << " healed for " << heal_value << endl;	
 }
 
-shared_ptr<Item> Entity::drop_item()
+const shared_ptr<Item> & Entity::drop_item()
 {
 	return this->drop;
 }
@@ -152,7 +159,11 @@ void Player::print_stats()
 		for(unsigned int i = 0; i < Inventory.size(); i++)
 		{
 			cout << i+1 << ". ";
-			if(Inventory[i] != nullptr) cout << Inventory[i]->get_item_name();
+			if(Inventory[i] != nullptr) 
+			{
+				cout << Inventory[i]->get_item_name();
+				if(Inventory[i]->if_to_use()) cout <<" (x" << Inventory[i]->get_item_amount() << ")";
+			}
 			else cout << "Empty slot";
 			cout << " |";
 		}
